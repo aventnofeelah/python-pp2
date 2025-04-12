@@ -47,10 +47,11 @@ def main():
                     radius = max(1, radius - 1)
             
             if event.type == pygame.MOUSEMOTION:
-                # if mouse moved, add point to list
-                position = event.pos
-                points = points + [position]
-                points = points[-256:]
+                if pygame.mouse.get_pressed()[0]:
+                    # if mouse moved, add point to list
+                    position = event.pos
+                    points = points + [position]
+                    points = points[-256:]
                 
         screen.fill((0, 0, 0))
         
@@ -92,9 +93,9 @@ def drawLineBetween(screen, index, start, end, width, color_mode, shape):
             pygame.draw.rect(screen, color, pygame.Rect(x - width, y - width, width * 2, width * 2))
         elif shape == 'triangle':
             points = [
-                (x, y - width),           # Верх
-                (x - width, y + width),   # Лево
-                (x + width, y + width)    # Право
+                (x, y - width),           
+                (x - width, y + width),   
+                (x + width, y + width)    
             ]
             pygame.draw.polygon(screen, color, points)
 main()
